@@ -38,8 +38,14 @@ export class RedisChannelConfig extends ChannelConfig {
 }
 
 interface Connection {
-  host: string;
-  port: number;
+  connectionOpts:
+    | {
+        host: string;
+        port: number;
+      }
+    | {
+        path: string;
+      };
   password?: string;
   db?: number;
 }

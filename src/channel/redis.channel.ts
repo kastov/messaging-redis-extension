@@ -9,7 +9,11 @@ export class RedisChannel extends Channel<RedisChannelConfig> {
   constructor(config: RedisChannelConfig) {
     super(config);
     this.queue = new Queue(config.queue, {
-      connection: this.config.connection,
+      connection: {
+        ...this.config.connection.connectionOpts,
+        password: this.config.connection.password,
+        db: this.config.connection.db,
+      },
       prefix: config.keyPrefix,
       defaultJobOptions: {
         removeOnComplete: config.bullJobOptions?.removeOnComplete,
